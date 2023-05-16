@@ -7,7 +7,12 @@ from .serializers import (
     LoginSerializer,
     UserSerializer,
     UserCreateSerializer,
-    UserUpdateSerializer
+    UserUpdateSerializer,
+    ActivateAccountEmailSendSerializer,
+    ForgotpasswordEmailSendSerializer,
+    ForgotpasswordSerializer,
+    ResetPasswordSerializer,
+    ActivateAccountSerializer
 )
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from utils.response_handler import ResponseMsg as rm
@@ -23,7 +28,8 @@ from core.permissions import (
     IsUserItSelf
 )
 from rest_framework import permissions
-
+from rest_framework.decorators import action
+from django.contrib.auth.tokens import default_token_generator
 # Create your views here.
 
 class LoginView(TokenObtainPairView):
@@ -108,4 +114,93 @@ class UserManager(viewsets.ModelViewSet):
         return Response(response.response)
     
 
+    @action(
+        methods=['POST'],
+        detail=False,
+        url_path="account-activate-email-send",
+        permission_classes=[permissions.AllowAny],
+        serializer_class=ActivateAccountEmailSendSerializer
+    )
+    def account_email_send(self, request):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.send_mail()
+        response = rm(
+            data = {},
+            error=False,
+            message="Activation Email Send Successfully!!!"
+        )
+        return Response(response.response)
+
+    @action(
+        methods=['POST'],
+        detail=False,
+        url_path="account-activate",
+        permission_classes=[permissions.AllowAny],
+        serializer_class = ActivateAccountSerializer
+    )
+    def account_activate(self, request):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.set_active()
+        response = rm(
+            data = {},
+            error=False,
+            message="Account Acticated!!!"
+        )
+        return Response(response.response)
     
+
+    @action(
+        methods=['POST'],
+        detail=False,
+        url_path="forgot-password-email-send",
+        permission_classes=[permissions.AllowAny],
+        serializer_class=ForgotpasswordEmailSendSerializer
+    )
+    def forgot_password_email_send(self, request):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.send_mail()
+        response = rm(
+            data = {},
+            error=False,
+            message="Forgot password Email Send Successfully!!!"
+        )
+        return Response(response.response)
+    
+    @action(
+        methods=['POST'],
+        detail=False,
+        url_path="forgot-password",
+        permission_classes=[permissions.AllowAny],
+        serializer_class=ForgotpasswordSerializer
+    )
+    def forgot_password(self, request):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.set_password(password = request.data["password"])
+        response = rm(
+            data = {},
+            error=False,
+            message="Password Set Successfully!!!"
+        )
+        return Response(response.response)
+    
+    @action(
+        methods=['POST'],
+        detail=False,
+        url_path="reset-password",
+        permission_classes=[IsUserItSelf],
+        serializer_class=ResetPasswordSerializer
+    )
+    def reset_password(self, request):
+        serializer = self.get_serializer(data = request.data, context={"request":request})
+        serializer.is_valid(raise_exception=True)
+        serializer.set_password()
+        response = rm(
+            data = {},
+            error=False,
+            message="Password reset Successfully!!!"
+        )
+        return Response(response.response)

@@ -45,7 +45,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return self.email
     
-
     @property
     def role(self):
         group = self.groups.first()
