@@ -12,7 +12,7 @@ def custom_exception_handler(exc, context):
         custom_response_data = {
             "data":{},
             "error":True,
-            "msg": str(exc.detail)
+            "message": str(exc.detail)
         }
 
         return Response(custom_response_data, status=response.status_code)
@@ -20,7 +20,7 @@ def custom_exception_handler(exc, context):
     custom_response_data = {
             "data":{},
             "error":True,
-            "msg": str(exc)
+            "message": str(exc)
         }
 
     return Response(custom_response_data, status=status.HTTP_400_BAD_REQUEST)
