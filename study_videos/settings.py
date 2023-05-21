@@ -102,6 +102,18 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default':
+#         {
+#             'ENGINE': 'djongo',
+#             'NAME': config("DB_NAME"),
+#             'CLIENT':
+#                 {
+#                     'host':f"mongodb+srv://{config('USER')}:{config('PASSWORD')}@{config('HOST')}"
+#                 }
+#         }
+# }
+
 AUTH_USER_MODEL = "account.User"
 
 # Password validation
