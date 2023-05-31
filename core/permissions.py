@@ -11,13 +11,6 @@ def _is_in_group(user, group_name):
 def _has_group_permission(user, required_groups):
     return any([_is_in_group(user,group_name) for group_name in required_groups])
 
-class IsWaiter(permissions.BasePermission):
-    required_groups = ["waiter"]
-
-    def has_permission(self, request, view):
-        has_group_permission = _has_group_permission(request.user, self.required_groups)
-        return request.user and has_group_permission 
-
 
 class IsAdmin(permissions.BasePermission):
     required_groups = ["Admin"]
@@ -57,6 +50,41 @@ class IsSubscribedStudent(permissions.BasePermission):
     
 
 class IsUserItSelf(permissions.BasePermission):
+
+    message = 'You must be the creator of this object.'
+
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.id == request.user.id
+    
+class IsUserItSelfforVideos(permissions.BasePermission):
+
+    message = 'You must be the creator of this object.'
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        return obj.for_channel.created_by.id == request.user.id
+    
+class IsUserItSelfforVideosChannel(permissions.BasePermission):
+
+    message = 'You must be the creator of this object.'
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        return obj.created_by.id == request.user.id
+    
+class IsUserItSelfforVideosFileUpload(permissions.BasePermission):
+
+    message = 'You must be the creator of this object.'
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        return obj.uploaded_by.id == request.user.id
+    
+class IsUserItSelfforThumnails(permissions.BasePermission):
+
+    message = 'You must be the creator of this object.'
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        return obj.video_file.uploaded_by.id == request.user.id

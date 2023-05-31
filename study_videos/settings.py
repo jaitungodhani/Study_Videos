@@ -44,12 +44,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
-    'cloudinary_storage',
-    'cloudinary',
+    # 'cloudinary_storage',
+    # 'cloudinary',
+    'storages',
     'django_celery_results',
 
     'account',
-    'core'
+    'core',
+    'videos'
 ]
 
 MIDDLEWARE = [
@@ -176,7 +178,7 @@ STATIC_URL = '/static/'
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -196,14 +198,35 @@ SIMPLE_JWT = {
 
 
 # cloudnary storage for image and videos store
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUD_NAME'),
-    'API_KEY': config('CLOUDNARY_API'),
-    'API_SECRET': config('CLOUDNARY_SECRET'),
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': config('CLOUD_NAME'),
+#     'API_KEY': config('CLOUDNARY_API'),
+#     'API_SECRET': config('CLOUDNARY_SECRET'),
+# }
 
-MEDIA_URL = 'studies_videos/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# MEDIA_URL = 'studies_videos/media/'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# #Wasabi Storage
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY_ID")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = config("AWS_REGION")
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_EXPIRE=7200
+AWS_LOCATION = 'static'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'study_videos.storage_backends.MediaStorage'
+
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.wasabisys.com' % (AWS_STORAGE_BUCKET_NAME, config("AWS_REGION"))
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME)
+
 
 # For Email Send
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -213,6 +236,7 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_ID')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
 
+MAX_UPLOAD_SIZE = "214958080"
 
 # celery
 CELERY_BROKER_URL = f"redis://127.0.0.1:6379"

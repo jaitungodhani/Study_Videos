@@ -12,7 +12,7 @@ def custom_exception_handler(exc, context):
         custom_response_data = {
             "data":{},
             "error":True,
-            "message": str(exc.detail)
+            "message": str(getattr(exc, "detail", str(exc)))
         }
 
         return Response(custom_response_data, status=response.status_code)

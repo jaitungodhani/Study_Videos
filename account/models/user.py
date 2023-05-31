@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, AbstractUser
 from django.utils.translation import gettext_lazy as _
 from .user_manager import CustomUserManager
+from ..utils import GroupPermission
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -49,5 +50,34 @@ class User(AbstractBaseUser, PermissionsMixin):
     def role(self):
         group = self.groups.first()
         return group.name if group else None
+    
+    @property
+    def is_adminuser(self):
+        permission = GroupPermission(self, "Admin")
+        return permission._has_group_permission()
+    
+    @property
+    def is_facultyuser(self):
+        permission = GroupPermission(self, "Faculty")
+        return permission._has_group_permission()
+    
+    @property
+    def is_subscribedfacultyuser(self):
+        permission = GroupPermission(self, "Subscribed Faculty")
+        return permission._has_group_permission()
+    
+    @property
+    def is_studentuser(self):
+        permission = GroupPermission(self, "Student")
+        return permission._has_group_permission()
+    
+    @property
+    def is_subscribedstudentuser(self):
+        permission = GroupPermission(self, "Subscribed Student")
+        return permission._has_group_permission()
+
+
+
+
 
 
