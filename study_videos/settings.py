@@ -28,7 +28,7 @@ SECRET_KEY = 'b3d*5$a(cbyvxu5$k6vj6br)x^7)7-vwmda^2(f5c597-&i@u^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "env-studyvideos.eba-ct2kxw2i.us-west-2.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "ec2-18-234-239-21.compute-1.amazonaws.com", "18.234.239.21"]
 
 
 # Application definition
