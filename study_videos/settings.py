@@ -240,4 +240,4 @@ MAX_UPLOAD_SIZE = "214958080"
 
 # celery
 CELERY_BROKER_URL = f"redis://127.0.0.1:6379"
-CELERY_RESULT_BACKEND = f'db+mysql://{config("USER")}:{config("PASSWORD")}@{config("HOST")}:{config("PORT")}/{config("DB_NAME")}'
+CELERY_RESULT_BACKEND = f'db+mysql://{config("DB_USER")}:{config("DB_PASSWORD")}@{config("DB_HOST")}:{config("DB_PORT")}/{config("DB_NAME")}'
