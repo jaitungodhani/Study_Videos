@@ -28,7 +28,7 @@ SECRET_KEY = 'b3d*5$a(cbyvxu5$k6vj6br)x^7)7-vwmda^2(f5c597-&i@u^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "env-studyvideos.eba-ct2kxw2i.us-west-2.elasticbeanstalk.com"]
 
 
 # Application definition
@@ -97,10 +97,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': config("DB_NAME"),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
-        'PORT': config('PORT'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
