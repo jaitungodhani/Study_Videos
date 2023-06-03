@@ -26,7 +26,7 @@ from django.conf.urls.static import static
 schema_view = get_schema_view(
    openapi.Info(
       title="Studies Videos App Apis",
-      default_version='v2',
+      default_version='v1',
       description="Studies Videos App Apis",
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="support@studyvideosapp.com"),
