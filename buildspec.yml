@@ -2,22 +2,22 @@ version: 0.1
 
 environment_variables:
   plaintext:
-    DB_NAME: study_videos_app
-    DB_USER: admin
-    DB_PASSWORD: servicepack
-    DB_HOST: studyvideos.cqr5yrjostbi.us-east-1.rds.amazonaws.com
-    DB_PORT: 3306
-    CLOUD_NAME: drfdjango
-    CLOUDNARY_API: 625865289567944
-    CLOUDNARY_SECRET: FXHzvgBmnFpQ4ZFLXgLZYIEqv8s
-    EMAIL_ID: jaitun.flyontechsolution@gmail.com
-    EMAIL_PASSWORD: rbezxxfeicxtkjvn
-    EMAIL_PORT: 587
-    EMAIL_HOST: smtp.gmail.com
-    AWS_ACCESS_KEY_ID: AKIAVRAENOY24VPYOF6X
-    AWS_SECRET_ACCESS_KEY_ID: ALzeO2x5qz092+Kr6moJKs2YFTr+oSfueBNlOYAz
-    AWS_STORAGE_BUCKET_NAME: studyvideosapp
-    AWS_REGION: us-east-1
+    DB_NAME : study_videos_app
+    DB_USER  : admin
+    DB_PASSWORD : servicepack
+    DB_HOST : studyvideos.cqr5yrjostbi.us-east-1.rds.amazonaws.com
+    DB_PORT : 3306
+    CLOUD_NAME : drfdjango
+    CLOUDNARY_API : 625865289567944
+    CLOUDNARY_SECRET : FXHzvgBmnFpQ4ZFLXgLZYIEqv8s
+    EMAIL_ID : jaitun.flyontechsolution@gmail.com
+    EMAIL_PASSWORD : rbezxxfeicxtkjvn
+    EMAIL_PORT : 587
+    EMAIL_HOST : smtp.gmail.com
+    AWS_ACCESS_KEY_ID : AKIAVRAENOY24VPYOF6X
+    AWS_SECRET_ACCESS_KEY_ID : ALzeO2x5qz092+Kr6moJKs2YFTr+oSfueBNlOYAz
+    AWS_STORAGE_BUCKET_NAME : studyvideosapp
+    AWS_REGION : us-east-1
 
 phases:
   pre_build:
