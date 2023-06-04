@@ -21,7 +21,7 @@ class LikesView(
         response = ResponseMsg(
             data= response_data.data,
             error=False,
-            message="Likes Successfully!!!"
+            message="Likes Successfully!!"
         )
         return Response(response.response)
     
@@ -33,7 +33,7 @@ class LikesView(
         response = ResponseMsg(
             data= {},
             error=False,
-            message="Likes remove Successfully!!!"
+            message="Likes remove Successfully!!"
         )
         return Response(response.response)
 
