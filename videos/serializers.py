@@ -11,9 +11,7 @@ class ThumbnaisSerializer(serializers.ModelSerializer):
         model = Video_Thumbnails
         fields = "__all__"
 
-class VideoFileSerilaizer(serializers.ModelSerializer):
-    title = serializers.SerializerMethodField(read_only = True)
-    file_name = serializers.SerializerMethodField(read_only = True)
+class VideoFileBaseSerializer(serializers.ModelSerializer):
     video_for_thumbnails = ThumbnaisSerializer(many = True, read_only = True)
     
     class Meta:
@@ -47,6 +45,10 @@ class VideoFileSerilaizer(serializers.ModelSerializer):
             os.remove("%s3.jpeg"%file_name)
 
         return new_obj
+
+class VideoFileSerilaizer(VideoFileBaseSerializer):
+    title = serializers.SerializerMethodField(read_only = True)
+    file_name = serializers.SerializerMethodField(read_only = True)
     
     def get_title(self, obj):
         file_name, _ = os.path.splitext(self.file_name)
@@ -54,6 +56,7 @@ class VideoFileSerilaizer(serializers.ModelSerializer):
     
     def get_file_name(self, obj):
         return self.file_name
+    
 
 class VideoChannelSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only = True)
@@ -77,7 +80,7 @@ class VideoChannelCreateSerializer(serializers.ModelSerializer):
 
 class VideosSerializer(serializers.ModelSerializer):
     for_channel = VideoChannelSerializer(read_only = True)
-    video_file = VideoFileSerilaizer(read_only = True)
+    video_file = VideoFileBaseSerializer(read_only = True)
 
     class Meta:
         model = Videos
