@@ -52,7 +52,8 @@ INSTALLED_APPS = [
 
     'account',
     'core',
-    'videos'
+    'videos',
+    'likes'
 ]
 
 MIDDLEWARE = [

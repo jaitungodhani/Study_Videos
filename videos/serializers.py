@@ -4,7 +4,7 @@ from django.core.files.images import ImageFile
 from .helpers import generate_thumbnail
 from account.serializers import UserSerializer
 import os
-
+from likes.models import Likes
 
 class ThumbnaisSerializer(serializers.ModelSerializer):
     class Meta:
@@ -81,10 +81,19 @@ class VideoChannelCreateSerializer(serializers.ModelSerializer):
 class VideosSerializer(serializers.ModelSerializer):
     for_channel = VideoChannelSerializer(read_only = True)
     video_file = VideoFileBaseSerializer(read_only = True)
+    num_of_likes = serializers.SerializerMethodField(read_only = True)
+    like_by_user = serializers.SerializerMethodField(read_only = True)
 
     class Meta:
         model = Videos
         fields = "__all__"
+
+    def get_num_of_likes(self, obj):
+        return Likes.objects.filter(videos__id = obj.id).count()
+
+    def get_like_by_user(self, obj):
+        return Likes.objects.filter(videos__id = obj.id, user = self.context["request"].user).exists()
+
 
 
 class VideosCreateSerializer(serializers.ModelSerializer):
