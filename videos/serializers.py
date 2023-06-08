@@ -5,6 +5,7 @@ from .helpers import generate_thumbnail
 from account.serializers import UserSerializer
 import os
 from likes.models import Likes
+from comments.models import Comments
 
 class ThumbnaisSerializer(serializers.ModelSerializer):
     class Meta:
@@ -83,6 +84,7 @@ class VideosSerializer(serializers.ModelSerializer):
     video_file = VideoFileBaseSerializer(read_only = True)
     num_of_likes = serializers.SerializerMethodField(read_only = True)
     like_by_user = serializers.SerializerMethodField(read_only = True)
+    num_of_comments = serializers.SerializerMethodField(read_only = True)
 
     class Meta:
         model = Videos
@@ -90,6 +92,9 @@ class VideosSerializer(serializers.ModelSerializer):
 
     def get_num_of_likes(self, obj):
         return Likes.objects.filter(videos__id = obj.id).count()
+    
+    def get_num_of_comments(self, obj):
+        return Comments.objects.filter(video__id = obj.id).count()
 
     def get_like_by_user(self, obj):
         return Likes.objects.filter(videos__id = obj.id, user = self.context["request"].user).exists()

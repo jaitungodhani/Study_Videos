@@ -88,3 +88,11 @@ class IsUserItSelfforThumnails(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.video_file.uploaded_by.id == request.user.id
+    
+class IsUserItSelfforComment(permissions.BasePermission):
+
+    message = 'You must be the creator of this object.'
+
+    def has_object_permission(self, request, view, obj):
+        # Instance must have an attribute named `owner`.
+        return obj.user.id == request.user.id

@@ -7,6 +7,9 @@ from study_videos.celery import send_mail
 from django.template.loader import get_template
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
+import stripe
+from django.conf import settings
+from payment.models import StripeCustomer
 
 
 User = get_user_model()
@@ -14,6 +17,35 @@ User = get_user_model()
 class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
+
+        stripe.api_key =settings.STRIPE_SECRET_KEY
+    
+        sub_obj=StripeCustomer.objects.filter(user=self.user).first()
+        print(sub_obj)
+        if sub_obj:
+            sub_status=stripe.Subscription.retrieve(
+                sub_obj.stripeSubscriptionId,
+            )
+
+            if sub_status.status == "active":
+                if self.user.is_facultyuser:
+                    self.user.groups.set("")
+                    self.user.groups.add("Subscribed Faculty")
+
+                if self.user.is_studentuser:
+                    self.user.groups.set("")
+                    self.user.groups.add("Subscribed Student")
+
+            else:
+                if self.user.is_subscribedfacultyuser:
+                    self.user.groups.set("")
+                    self.user.groups.add("Faculty")
+
+                if self.user.is_subscribedstudentuser:
+                    self.user.groups.set("")
+                    self.user.groups.add("Student")
+
+
         data["user_data"] = {
             'id': self.user.id,
             'email': self.user.email,

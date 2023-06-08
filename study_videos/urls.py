@@ -41,6 +41,8 @@ urlpatterns = [
     path('api/', include('account.urls')),
     path('api/', include('videos.urls')),
     path('api/', include('likes.urls')),
+    path('api/', include('comments.urls')),
+    path('api/', include('payment.urls')),
 
     re_path(r'^docs/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
 ]

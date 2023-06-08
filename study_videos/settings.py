@@ -45,15 +45,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
-    # 'cloudinary_storage',
-    # 'cloudinary',
     'storages',
     'django_celery_results',
+    'mptt',
 
     'account',
     'core',
     'videos',
-    'likes'
+    'likes',
+    'comments',
+    'payment'
 ]
 
 MIDDLEWARE = [
@@ -243,3 +244,10 @@ MAX_UPLOAD_SIZE = "214958080"
 # celery
 CELERY_BROKER_URL = f"redis://127.0.0.1:6379"
 CELERY_RESULT_BACKEND = f'db+mysql://{config("DB_USER")}:{config("DB_PASSWORD")}@{config("DB_HOST")}:{config("DB_PORT")}/{config("DB_NAME")}'
+
+
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+STUDENT_MONTHLY_PLAN_ID=config("STUDENT_MONTHLY_PLAN_ID")
+STUDENT_YEARLY_PLAN_ID=config("STUDENT_YEARLY_PLAN_ID")
+STRIPE_ENDPOINT_SECRET=config("STRIPE_ENDPOINT_SECRET")
