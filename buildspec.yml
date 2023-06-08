@@ -2,7 +2,7 @@ version: 0.1
 
 environment_variables:
   plaintext:
-    DB_NAME : study-videos-app
+    DB_NAME : studyvideosapp
     DB_USER  : admin
     DB_PASSWORD : servicepack
     DB_HOST : study-videos-app.cqr5yrjostbi.us-east-1.rds.amazonaws.com
