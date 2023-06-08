@@ -2,10 +2,10 @@ version: 0.1
 
 environment_variables:
   plaintext:
-    DB_NAME : study_videos_app
+    DB_NAME : study-videos-app
     DB_USER  : admin
     DB_PASSWORD : servicepack
-    DB_HOST : studyvideos.cqr5yrjostbi.us-east-1.rds.amazonaws.com
+    DB_HOST : study-videos-app.cqr5yrjostbi.us-east-1.rds.amazonaws.com
     DB_PORT : 3306
     CLOUD_NAME : drfdjango
     CLOUDNARY_API : 625865289567944
@@ -18,6 +18,11 @@ environment_variables:
     AWS_SECRET_ACCESS_KEY_ID : ALzeO2x5qz092+Kr6moJKs2YFTr+oSfueBNlOYAz
     AWS_STORAGE_BUCKET_NAME : studyvideosapp
     AWS_REGION : us-east-1
+    STRIPE_PUBLISHABLE_KEY : pk_test_51KBG3CSAxQdf6JreLJMxW0CCd1lLaRWPqGbiPPfoge5xUe274KMD9wLjlX5VLI2cSV5an1rdVxNfr7SKJAJq7VSu00Y9raDNCL
+    STRIPE_SECRET_KEY : sk_test_51KBG3CSAxQdf6Jre426wd52AfvfTYsbfp2Ggmqdl3qQjf7R4alOJ99BZ9rG1nrP1zuamBJJYe03ZFCIy9R3mfGbM00TkZgnYRU
+    STUDENT_MONTHLY_PLAN_ID : price_1NFcFdSAxQdf6Jre8p1N6v1m
+    STUDENT_YEARLY_PLAN_ID : price_1NFcIZSAxQdf6JreAB95sfmN
+    STRIPE_ENDPOINT_SECRET : whsec_ffeecce70547054cba3cecb440a1a8cbe6184dadd2a268aca769d0b984a9c4e2
 
 phases:
   pre_build:
