@@ -5,6 +5,8 @@ sed -i 's/\[]/\["107.21.190.38"]/' /home/ubuntu/Study_Videos/study_videos/settin
 python manage.py migrate 
 python manage.py makemigrations     
 python manage.py collectstatic
+python manage.py create_groups
+python manage.py import_languages
 sudo service gunicorn restart
 sudo service nginx restart
 #sudo tail -f /var/log/nginx/error.log
