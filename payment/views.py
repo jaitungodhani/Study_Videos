@@ -8,6 +8,9 @@ import stripe
 from rest_framework import permissions
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404
+from .serializers import CreateCheckoutSessionSerializer
+from drf_yasg.utils import swagger_auto_schema
+import datetime
 # Create your views here.
 
 class PaymentConfig(views.APIView):
@@ -15,7 +18,9 @@ class PaymentConfig(views.APIView):
         data = {
             "PUBLISHABLE_KEY":settings.STRIPE_PUBLISHABLE_KEY,
             "STUDENT_MONTHLY_PLAN_ID":settings.STUDENT_MONTHLY_PLAN_ID,
-            "STUDENT_YEARLY_PLAN_ID":settings.STUDENT_YEARLY_PLAN_ID
+            "STUDENT_YEARLY_PLAN_ID":settings.STUDENT_YEARLY_PLAN_ID,
+            "FACULTY_MONTHLY_PLAN_ID":settings.FACULTY_MONTHLY_PLAN_ID,
+            "FACULTY_YEARLY_PLAN_ID":settings.FACULTY_YEARLY_PLAN_ID,
         }
         response = ResponseMsg(
             data= data,
@@ -82,7 +87,12 @@ class StripeWebHook(views.APIView):
         
 
 class CreateCheckoutSession(views.APIView):
+
+    @swagger_auto_schema(
+            request_body=CreateCheckoutSessionSerializer
+    )
     def post(self, request):
+        serializer = CreateCheckoutSessionSerializer(request.data)
         stripe.api_key =settings.STRIPE_SECRET_KEY
     
         sub_obj=StripeCustomer.objects.filter(user=request.user).first()
@@ -104,13 +114,13 @@ class CreateCheckoutSession(views.APIView):
                         customer=customer_id,
                         line_items=[
                             {
-                                'price': request.data.get("lookup_key"),
+                                'price': serializer.validated_data["lookup_key"],
                                 'quantity': 1,
                             },
                         ],
                         mode='subscription',
-                        success_url=request.data.get("success_url"),
-                        cancel_url=request.data.get("cancel_url"),
+                        success_url=serializer.validated_data["success_url"],
+                        cancel_url=serializer.validated_data["cancel_url"],
                     )
                     r=ResponseMsg(data={"url":checkout_session.url},error=False,message="Subscription status !!!!")
                     return Response(r.response)
@@ -140,3 +150,49 @@ class CreateCheckoutSession(views.APIView):
             print(e)
             r=ResponseMsg(data={},error=True,message=str(e))
             return Response(r.response)
+
+class GetUserActiveSubscriptionDetail(views.APIView):
+
+    def get(self, request):
+        try:
+            subscripion_obj = StripeCustomer.objects.get(user = request.user)
+        except StripeCustomer.DoesNotExist:
+            r=ResponseMsg(data={},error=False,message="No Any Active Subscription found four this User !!!!")
+            return Response(r.response)
+        
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        data = {
+            "subscription_details":{
+                "id": None,
+                "start_date":None,
+                "end_date":None,
+                "status":None,
+                "plan_name":None
+            },
+            "payment_info":{
+                "id": None,
+                "last4": None,
+                "type": None,
+                "country": None,
+                "funding": None,
+                "exp_month": None,
+                "exp_year": None
+            }
+        }
+
+        subscription_data = stripe.Subscription.retrieve(
+            subscripion_obj.stripeSubscriptionId
+        )
+
+        payment_info = stripe.PaymentMethod.list(
+            customer=subscripion_obj.stripeCustomerId,
+            type="card",
+        )
+        
+
+        data["subscription_details"] = subscription_data
+        data["payment_info"] = payment_info
+        
+        r=ResponseMsg(data=data,error=False,message="Subscription Details Get !!!!")
+        return Response(r.response)

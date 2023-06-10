@@ -26,6 +26,8 @@ from .serializers import (
 from utils.response_handler import ResponseMsg 
 from rest_framework.response import Response
 from rest_framework import permissions
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 # Create your views here.
 
@@ -151,8 +153,10 @@ class ManageVideoFileView(mixins.CreateModelMixin,
 
 
 class ManageVideos(viewsets.ModelViewSet):
-    queryset = Videos.objects.all().order_by("created_at")
+    queryset = Videos.objects.all().order_by("-created_at")
     serializer_class = VideosSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['title', 'description', 'for_channel__name', 'for_channel__created_by__username']
     permission_classes = [permissions.AllowAny]
 
     def get_permissions(self):

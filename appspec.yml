@@ -19,6 +19,9 @@ hooks:
       - location: scripts/python_dependencies.sh
         timeout: 300
         runas: ubuntu
+      - location: scripts/redis.sh
+        timeout: 300
+        runas: ubuntu
       - location: scripts/gunicorn.sh
         timeout: 300
         runas: ubuntu

@@ -108,7 +108,7 @@ class VideosCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def to_representation(self, instance):
-        return VideosSerializer(instance).data
+        return VideosSerializer(instance, context = {"request": self.context["request"]} ).data
     
 class ThumbnailUpdateSerializer(serializers.ModelSerializer):
 
