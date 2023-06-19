@@ -143,7 +143,9 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'django_cognito_jwt.JSONWebTokenAuthentication',
+        'utils.custom_authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -254,3 +256,8 @@ STUDENT_YEARLY_PLAN_ID=config("STUDENT_YEARLY_PLAN_ID")
 FACULTY_MONTHLY_PLAN_ID=config("FACULTY_MONTHLY_PLAN_ID")
 FACULTY_YEARLY_PLAN_ID=config("FACULTY_YEARLY_PLAN_ID")
 STRIPE_ENDPOINT_SECRET=config("STRIPE_ENDPOINT_SECRET")
+
+
+COGNITO_AWS_REGION = 'us-east-1' # 'eu-central-1'
+COGNITO_USER_POOL = 'us-east-1_GtThqV5JO'   # 'eu-central-1_xYzaq'
+COGNITO_AUDIENCE = '38v9n7lntrgoasguck2j3eos30'

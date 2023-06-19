@@ -32,6 +32,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=True
     )
+    cognito_id = models.CharField(
+        verbose_name=_("cognito_id"),
+        max_length=100,
+        null=True,
+        blank=True
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number', 'username']
