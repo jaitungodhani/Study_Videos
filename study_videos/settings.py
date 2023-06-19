@@ -144,8 +144,7 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'django_cognito_jwt.JSONWebTokenAuthentication',
-        'utils.custom_authentication.JSONWebTokenAuthentication',
+        'django_cognito_jwt.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
