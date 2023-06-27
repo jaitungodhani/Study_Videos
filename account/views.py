@@ -6,7 +6,14 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from core.permissions import IsAdmin, IsFaculty, IsStudent, IsSubscribedFaculty, IsSubscribedStudent, IsUserItSelf
+from core.permissions import (
+    IsAdmin,
+    IsFaculty,
+    IsStudent,
+    IsSubscribedFaculty,
+    IsSubscribedStudent,
+    IsUserItSelf,
+)
 from utils.response_handler import ResponseMsg as rm
 
 from .models import User

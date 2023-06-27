@@ -8,7 +8,11 @@ from core.permissions import IsAdmin, IsSubscribedStudent, IsUserItSelfforCommen
 from utils.response_handler import ResponseMsg
 
 from .models import Comments
-from .serializers import CommentCreateSerializer, CommentSerializer, CommentUpdateSerializer
+from .serializers import (
+    CommentCreateSerializer,
+    CommentSerializer,
+    CommentUpdateSerializer,
+)
 
 
 # Create your views here.

@@ -15,10 +15,8 @@ repos:
       - id: name-tests-test
         args: [ "--django" ]
       - id: trailing-whitespace
-  - repo: https://github.com/ambv/black
-    rev: 22.3.0
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
     hooks:
-      - id: black
-        language: python
-        types: [python]
-        args: ["--line-length=120"]
+      - id: isort
+        args: ["--profile", "black"]
