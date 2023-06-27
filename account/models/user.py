@@ -1,8 +1,9 @@
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, AbstractUser
 from django.utils.translation import gettext_lazy as _
-from .user_manager import CustomUserManager
+
 from ..utils import GroupPermission
+from .user_manager import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):

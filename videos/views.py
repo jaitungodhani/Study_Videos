@@ -1,28 +1,28 @@
 from django.shortcuts import render
-from .models import Videos, Video_Channel, VideosFile, Video_Thumbnails
-from rest_framework import viewsets, views, mixins
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, mixins, permissions, views, viewsets
+from rest_framework.response import Response
+
 from core.permissions import (
-    IsSubscribedFaculty,
     IsAdmin,
     IsFaculty,
+    IsSubscribedFaculty,
+    IsUserItSelfforThumnails,
     IsUserItSelfforVideos,
     IsUserItSelfforVideosChannel,
     IsUserItSelfforVideosFileUpload,
-    IsUserItSelfforThumnails,
-)
-from .serializers import (
-    VideosSerializer,
-    VideosCreateSerializer,
-    ThumbnailUpdateSerializer,
-    VideoChannelSerializer,
-    VideoChannelCreateSerializer,
-    VideoFileSerilaizer,
 )
 from utils.response_handler import ResponseMsg
-from rest_framework.response import Response
-from rest_framework import permissions
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
+
+from .models import Video_Channel, Video_Thumbnails, Videos, VideosFile
+from .serializers import (
+    ThumbnailUpdateSerializer,
+    VideoChannelCreateSerializer,
+    VideoChannelSerializer,
+    VideoFileSerilaizer,
+    VideosCreateSerializer,
+    VideosSerializer,
+)
 
 # Create your views here.
 

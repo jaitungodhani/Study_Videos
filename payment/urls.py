@@ -1,5 +1,6 @@
-from django.urls import path, include
-from .views import PaymentConfig, StripeWebHook, CreateCheckoutSession, GetUserActiveSubscriptionDetail
+from django.urls import include, path
+
+from .views import CreateCheckoutSession, GetUserActiveSubscriptionDetail, PaymentConfig, StripeWebHook
 
 urlpatterns = [
     path("payment/payment_config/", PaymentConfig.as_view()),

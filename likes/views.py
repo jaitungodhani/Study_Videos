@@ -1,8 +1,10 @@
-from rest_framework import viewsets, mixins
-from .models import Likes
-from core.permissions import IsSubscribedStudent, IsAdmin
-from utils.response_handler import ResponseMsg
+from rest_framework import mixins, viewsets
 from rest_framework.response import Response
+
+from core.permissions import IsAdmin, IsSubscribedStudent
+from utils.response_handler import ResponseMsg
+
+from .models import Likes
 from .serializers import LikesSerializer
 
 # Create your views here.

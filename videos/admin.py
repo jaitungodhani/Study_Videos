@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Videos, Video_Channel, VideosFile, Video_Thumbnails
+
+from .models import Video_Channel, Video_Thumbnails, Videos, VideosFile
 
 # Register your models here.
 

@@ -1,9 +1,8 @@
 import os
 
 from celery import Celery
-from django.core.mail import EmailMessage
 from decouple import config
-
+from django.core.mail import EmailMessage
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "study_videos.settings")

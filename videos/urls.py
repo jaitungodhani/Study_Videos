@@ -1,6 +1,7 @@
-from django.urls import path, include
-from .views import ManageVideos, ManageThumbnaailsView, ManageVideoChannelView, ManageVideoFileView
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+
+from .views import ManageThumbnaailsView, ManageVideoChannelView, ManageVideoFileView, ManageVideos
 
 router = DefaultRouter()
 

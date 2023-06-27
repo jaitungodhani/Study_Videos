@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Language
 
+from .models import Language
 
 # Register your models here.
 

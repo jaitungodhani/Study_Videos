@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from .models import Comments
-from videos.serializers import VideosSerializer
+
 from account.serializers import UserSerializer
+from videos.serializers import VideosSerializer
+
+from .models import Comments
 
 
 class CommentSerializer(serializers.ModelSerializer):

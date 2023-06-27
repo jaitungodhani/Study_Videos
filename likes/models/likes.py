@@ -1,8 +1,9 @@
 from django.db import models
-from account.models import User
-from videos.models import Videos
-from study_videos.behaviors import DateMixin, SoftDeleteMixin
 from django.utils.translation import gettext_lazy as _
+
+from account.models import User
+from study_videos.behaviors import DateMixin, SoftDeleteMixin
+from videos.models import Videos
 
 
 class Likes(DateMixin, SoftDeleteMixin, models.Model):

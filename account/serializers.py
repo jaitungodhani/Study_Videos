@@ -1,16 +1,16 @@
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework import serializers
-from django.utils.translation import gettext_lazy as _
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import Group
-from study_videos.celery import send_mail
-from django.template.loader import get_template
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth import get_user_model
 import stripe
 from django.conf import settings
-from payment.models import StripeCustomer
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import get_object_or_404
+from django.template.loader import get_template
+from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+from payment.models import StripeCustomer
+from study_videos.celery import send_mail
 
 User = get_user_model()
 

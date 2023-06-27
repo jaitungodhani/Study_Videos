@@ -1,6 +1,8 @@
-from django.db import models
 import uuid
+
+from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from account.models import User
 from study_videos.behaviors import DateMixin
 

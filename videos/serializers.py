@@ -1,11 +1,14 @@
-from rest_framework import serializers
-from .models import Videos, Video_Channel, VideosFile, Video_Thumbnails
-from django.core.files.images import ImageFile
-from .helpers import generate_thumbnail
-from account.serializers import UserSerializer
 import os
-from likes.models import Likes
+
+from django.core.files.images import ImageFile
+from rest_framework import serializers
+
+from account.serializers import UserSerializer
 from comments.models import Comments
+from likes.models import Likes
+
+from .helpers import generate_thumbnail
+from .models import Video_Channel, Video_Thumbnails, Videos, VideosFile
 
 
 class ThumbnaisSerializer(serializers.ModelSerializer):

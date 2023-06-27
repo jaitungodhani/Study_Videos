@@ -1,7 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):

@@ -1,6 +1,7 @@
 from django.db import models
-from study_videos.behaviors import DateMixin
 from django.utils.translation import gettext_lazy as _
+
+from study_videos.behaviors import DateMixin
 
 
 class Language(DateMixin, models.Model):

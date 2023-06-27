@@ -1,8 +1,10 @@
 from django.db import models
-from .video_file import VideosFile
 from django.utils.translation import gettext_lazy as _
-from study_videos.behaviors import DateMixin
+
 from account.models import User
+from study_videos.behaviors import DateMixin
+
+from .video_file import VideosFile
 
 
 class Video_Thumbnails(DateMixin, models.Model):

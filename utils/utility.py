@@ -1,6 +1,7 @@
-from rest_framework import viewsets, mixins
-from .response_handler import ResponseMsg
+from rest_framework import mixins, viewsets
 from rest_framework.response import Response
+
+from .response_handler import ResponseMsg
 
 
 class BaseModelViewSet(viewsets.GenericViewSet):

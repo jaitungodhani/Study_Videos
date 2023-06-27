@@ -1,25 +1,26 @@
+from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import render
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from core.permissions import IsAdmin, IsFaculty, IsStudent, IsSubscribedFaculty, IsSubscribedStudent, IsUserItSelf
+from utils.response_handler import ResponseMsg as rm
+
+from .models import User
 from .serializers import (
-    LoginSerializer,
-    UserSerializer,
-    UserCreateSerializer,
-    UserUpdateSerializer,
     ActivateAccountEmailSendSerializer,
+    ActivateAccountSerializer,
     ForgotpasswordEmailSendSerializer,
     ForgotpasswordSerializer,
+    LoginSerializer,
     ResetPasswordSerializer,
-    ActivateAccountSerializer,
+    UserCreateSerializer,
+    UserSerializer,
+    UserUpdateSerializer,
 )
-from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from utils.response_handler import ResponseMsg as rm
-from rest_framework.response import Response
-from rest_framework import viewsets
-from .models import User
-from core.permissions import IsAdmin, IsFaculty, IsStudent, IsSubscribedFaculty, IsSubscribedStudent, IsUserItSelf
-from rest_framework import permissions
-from rest_framework.decorators import action
-from django.contrib.auth.tokens import default_token_generator
 
 # Create your views here.
 

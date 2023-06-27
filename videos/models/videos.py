@@ -1,7 +1,10 @@
 from typing import Iterable, Optional
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from study_videos.behaviors import DateMixin
+
 from .video_channel import Video_Channel
 from .video_file import VideosFile
 

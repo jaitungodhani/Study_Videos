@@ -1,6 +1,7 @@
 # import requests
-import ffmpeg
 import sys
+
+import ffmpeg
 
 # in_filename = "D:\\Learning\\Study_Videos_BE\\Study_Videos\\pexels-ἐμμανυελ--16764519-1920x1080-24fps.mp4"
 # out_filename1 = "THUMBNAIL1.jpg"

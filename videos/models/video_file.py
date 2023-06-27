@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from study_videos.behaviors import DateMixin
+
 from account.models import User
+from study_videos.behaviors import DateMixin
 
 # Create your models here.
 
