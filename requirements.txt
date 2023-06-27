@@ -62,3 +62,4 @@ wcwidth==0.2.6
 gunicorn
 django-mptt
 stripe
+pre-commit
