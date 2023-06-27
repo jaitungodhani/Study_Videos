@@ -199,4 +199,4 @@ class Command(BaseCommand):
             except:
                 pass
 
-        print("initial languages has been imported successfully!!!")
+        print("initial languages has been imported successfully!")
