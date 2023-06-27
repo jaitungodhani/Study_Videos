@@ -1,10 +1,10 @@
 from django.db import models
 from account.models import User
 from videos.models import Videos
-from study_videos.behaviors import DateMixin
+from study_videos.behaviors import DateMixin, SoftDeleteMixin
 from django.utils.translation import gettext_lazy as _
 
-class Likes(DateMixin, models.Model):
+class Likes(DateMixin, SoftDeleteMixin, models.Model):
     user = models.ForeignKey(
         User,
         verbose_name=_("User"),

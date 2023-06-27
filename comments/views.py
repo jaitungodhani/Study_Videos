@@ -67,6 +67,10 @@ class ManageCommentView(
         )
         return Response(response.response)
     
+    
+    def perform_destroy(self, instance):
+        print("delete objects!!!!")
+        instance.soft_delete()
 
     @swagger_auto_schema(
             manual_parameters=[openapi.Parameter('video_id', in_=openapi.IN_QUERY,

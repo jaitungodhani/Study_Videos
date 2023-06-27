@@ -36,4 +36,7 @@ class LikesView(
             message="Likes remove Successfully!!"
         )
         return Response(response.response)
+    
+    def perform_destroy(self, instance):
+        instance.soft_delete()
 

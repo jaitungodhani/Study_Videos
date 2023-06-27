@@ -3,9 +3,9 @@ from django.utils.translation import gettext_lazy as _
 from account.models import User
 from videos.models import Videos
 from mptt.models import MPTTModel, TreeForeignKey
-from study_videos.behaviors import DateMixin
+from study_videos.behaviors import DateMixin, SoftDeleteMixin
 
-class Comments(DateMixin, MPTTModel):
+class Comments(DateMixin, SoftDeleteMixin, MPTTModel):
     text = models.TextField(
         verbose_name=_("Text")
     )
