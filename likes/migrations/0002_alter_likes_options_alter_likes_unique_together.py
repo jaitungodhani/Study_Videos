@@ -7,18 +7,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('videos', '0008_alter_videos_video_file'),
+        ("videos", "0008_alter_videos_video_file"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('likes', '0001_initial'),
+        ("likes", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='likes',
-            options={'verbose_name': 'Like', 'verbose_name_plural': 'Likes'},
+            name="likes",
+            options={"verbose_name": "Like", "verbose_name_plural": "Likes"},
         ),
         migrations.AlterUniqueTogether(
-            name='likes',
-            unique_together={('user', 'videos')},
+            name="likes",
+            unique_together={("user", "videos")},
         ),
     ]

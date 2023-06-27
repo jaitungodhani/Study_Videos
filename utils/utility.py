@@ -1,6 +1,7 @@
 from rest_framework import viewsets, mixins
-from .response_handler import ResponseMsg 
+from .response_handler import ResponseMsg
 from rest_framework.response import Response
+
 
 class BaseModelViewSet(viewsets.GenericViewSet):
     # pass
@@ -13,15 +14,16 @@ class BaseModelViewSet(viewsets.GenericViewSet):
             error = False
             message = "Success"
         # print(data, error, message)
-        rh = ResponseMsg(data = data, error = error, message=message)
+        rh = ResponseMsg(data=data, error=error, message=message)
         return rh.response
-    
+
+
 class FullBaseViewset(
     BaseModelViewSet,
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin
+    mixins.DestroyModelMixin,
 ):
     pass

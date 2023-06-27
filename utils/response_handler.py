@@ -4,8 +4,4 @@ class ResponseMsg:
         self.error = error
         self.message = message
 
-        self.response = {
-            'error':self.error,
-            'data':self.data,
-            'message':self.message
-        }
+        self.response = {"error": self.error, "data": self.data, "message": self.message}

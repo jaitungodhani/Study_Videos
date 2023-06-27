@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('videos', '0005_alter_video_thumbnails_video_file'),
+        ("videos", "0005_alter_video_thumbnails_video_file"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='videos',
-            name='is_publish',
-            field=models.BooleanField(default=False, verbose_name='Is Publish'),
+            model_name="videos",
+            name="is_publish",
+            field=models.BooleanField(default=False, verbose_name="Is Publish"),
         ),
     ]

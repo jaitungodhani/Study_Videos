@@ -10,22 +10,38 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('videos', '0008_alter_videos_video_file'),
+        ("videos", "0008_alter_videos_video_file"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Likes',
+            name="Likes",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_for_like', to=settings.AUTH_USER_MODEL, verbose_name='User')),
-                ('videos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='video_for_like', to='videos.videos', verbose_name='Videos')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user_for_like",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User",
+                    ),
+                ),
+                (
+                    "videos",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="video_for_like",
+                        to="videos.videos",
+                        verbose_name="Videos",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

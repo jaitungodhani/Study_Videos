@@ -14,16 +14,17 @@ from payment.models import StripeCustomer
 
 User = get_user_model()
 
+
 class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
 
-        stripe.api_key =settings.STRIPE_SECRET_KEY
-    
-        sub_obj=StripeCustomer.objects.filter(user=self.user).first()
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        sub_obj = StripeCustomer.objects.filter(user=self.user).first()
         print(sub_obj)
         if sub_obj:
-            sub_status=stripe.Subscription.retrieve(
+            sub_status = stripe.Subscription.retrieve(
                 sub_obj.stripeSubscriptionId,
             )
 
@@ -45,12 +46,11 @@ class LoginSerializer(TokenObtainPairSerializer):
                     self.user.groups.set("")
                     self.user.groups.add("Student")
 
-
         data["user_data"] = {
-            'id': self.user.id,
-            'email': self.user.email,
-            'profile_picture': self.user.profile_picture.url if self.user.profile_picture else None,
-            'role': self.user.role
+            "id": self.user.id,
+            "email": self.user.email,
+            "profile_picture": self.user.profile_picture.url if self.user.profile_picture else None,
+            "role": self.user.role,
         }
         return data
 
@@ -60,30 +60,21 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ('is_staff', 'is_superuser', 'groups',
-                   'user_permissions', 'last_login')
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
+        exclude = ("is_staff", "is_superuser", "groups", "user_permissions", "last_login")
+        extra_kwargs = {"password": {"write_only": True}}
 
     def get_role(self, obj):
         return obj.role
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    USER_ROLE_CHOICES = (
-        'Faculty', _('Faculty'),
-        'Student', _('Student')
-    )
+    USER_ROLE_CHOICES = ("Faculty", _("Faculty"), "Student", _("Student"))
     role = serializers.ChoiceField(choices=USER_ROLE_CHOICES, required=True)
 
     class Meta:
         model = User
-        exclude = ('is_staff', 'is_superuser', 'groups',
-                   'user_permissions', 'last_login', 'is_active')
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
+        exclude = ("is_staff", "is_superuser", "groups", "user_permissions", "last_login", "is_active")
+        extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         role = validated_data.pop("role")
@@ -102,8 +93,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ('is_staff', 'is_superuser', 'groups',
-                   'user_permissions', 'last_login', 'is_active', 'password')
+        exclude = ("is_staff", "is_superuser", "groups", "user_permissions", "last_login", "is_active", "password")
 
     def to_representation(self, instance):
         return UserSerializer(instance).data
@@ -123,12 +113,10 @@ class ActivateAccountEmailSendSerializer(serializers.Serializer):
         return super(ActivateAccountEmailSendSerializer, self).validate(attrs)
 
     def send_mail(self):
-        link = f'http://127.0.0.1:8000/api/userusermanager/account-activate/?user_id={self.email}&confirmation_token={default_token_generator.make_token(self.user)}'
-    
+        link = f"http://127.0.0.1:8000/api/userusermanager/account-activate/?user_id={self.email}&confirmation_token={default_token_generator.make_token(self.user)}"
+
         subject = "Activate Account of Study Videos App"
-        message = get_template("mail_body.html").render(
-            {"link":link, 'user':UserSerializer(self.user).data}
-        )
+        message = get_template("mail_body.html").render({"link": link, "user": UserSerializer(self.user).data})
         send_mail.apply_async(
             args=[subject, message, self.email],
         )
@@ -144,22 +132,21 @@ class ActivateAccountSerializer(serializers.Serializer):
 
             if self.user.is_active:
                 raise Exception("Account Already Activated!!!")
-            
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             self.user = None
         if self.user is None:
-           raise Exception("User Not Found")
+            raise Exception("User Not Found")
         return True
-    
+
     def validate_token(self, value):
         if not default_token_generator.check_token(self.user, value):
-           raise Exception('Token is invalid or expired. Please request another confirmation email by signing in.')
+            raise Exception("Token is invalid or expired. Please request another confirmation email by signing in.")
         return True
-    
+
     def set_active(self):
         self.user.is_active = True
         self.user.save()
-
 
 
 class ForgotpasswordEmailSendSerializer(serializers.Serializer):
@@ -174,12 +161,10 @@ class ForgotpasswordEmailSendSerializer(serializers.Serializer):
         return super(ForgotpasswordEmailSendSerializer, self).validate(attrs)
 
     def send_mail(self):
-        link = f'http://127.0.0.1:8000/api/userusermanager/account-activate/?user_id={self.email}&confirmation_token={default_token_generator.make_token(self.user)}'
-    
+        link = f"http://127.0.0.1:8000/api/userusermanager/account-activate/?user_id={self.email}&confirmation_token={default_token_generator.make_token(self.user)}"
+
         subject = "Change Password for your Study Videos App account"
-        message = get_template("forgot_password.html").render(
-            {"link":link, 'user':UserSerializer(self.user).data}
-        )
+        message = get_template("forgot_password.html").render({"link": link, "user": UserSerializer(self.user).data})
         send_mail.apply_async(
             args=[subject, message, self.email],
         )
@@ -193,24 +178,25 @@ class ForgotpasswordSerializer(serializers.Serializer):
     def validate_email(self, value):
         try:
             self.user = User.objects.get(email=value)
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             self.user = None
         if self.user is None:
-           raise Exception("User Not Found")
+            raise Exception("User Not Found")
         return True
-    
+
     def validate_token(self, value):
         if not default_token_generator.check_token(self.user, value):
-           raise Exception('Token is invalid or expired. Please request another confirmation email by signing in.')
+            raise Exception("Token is invalid or expired. Please request another confirmation email by signing in.")
         return True
-    
+
     def set_password(self, password):
         self.user.set_password(password)
         self.user.save()
 
+
 class ResetPasswordSerializer(serializers.Serializer):
-    old_password = serializers.CharField(required = True)
-    new_password = serializers.CharField(required = True)
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
 
     def validate(self, attrs):
         self.password = attrs["old_password"]
@@ -219,12 +205,10 @@ class ResetPasswordSerializer(serializers.Serializer):
 
         if not self.request.user.check_password(self.password):
             raise serializers.ValidationError("Password is Not Valid!!!")
-        
-        return super(ResetPasswordSerializer,self).validate(attrs)
-    
+
+        return super(ResetPasswordSerializer, self).validate(attrs)
+
     def set_password(self):
-    
-        self.request.user.set_password(
-           self.new_password
-        )
+
+        self.request.user.set_password(self.new_password)
         self.request.user.save()

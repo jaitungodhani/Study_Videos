@@ -9,13 +9,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('videos', '0001_initial'),
+        ("videos", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='videosfile',
-            name='uploaded_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Uploaded By'),
+            model_name="videosfile",
+            name="uploaded_by",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Uploaded By",
+            ),
         ),
     ]

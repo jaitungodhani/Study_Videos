@@ -12,27 +12,52 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('videos', '0008_alter_videos_video_file'),
+        ("videos", "0008_alter_videos_video_file"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Comments',
+            name="Comments",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('text', models.TextField(verbose_name='Text')),
-                ('lft', models.PositiveIntegerField(editable=False)),
-                ('rght', models.PositiveIntegerField(editable=False)),
-                ('tree_id', models.PositiveIntegerField(db_index=True, editable=False)),
-                ('level', models.PositiveIntegerField(editable=False)),
-                ('parent', mptt.fields.TreeForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='comments.comments')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_for_comment', to=settings.AUTH_USER_MODEL, verbose_name='User')),
-                ('video', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='video_for_comment', to='videos.videos', verbose_name='Video')),
+                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("text", models.TextField(verbose_name="Text")),
+                ("lft", models.PositiveIntegerField(editable=False)),
+                ("rght", models.PositiveIntegerField(editable=False)),
+                ("tree_id", models.PositiveIntegerField(db_index=True, editable=False)),
+                ("level", models.PositiveIntegerField(editable=False)),
+                (
+                    "parent",
+                    mptt.fields.TreeForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="children",
+                        to="comments.comments",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user_for_comment",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User",
+                    ),
+                ),
+                (
+                    "video",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="video_for_comment",
+                        to="videos.videos",
+                        verbose_name="Video",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

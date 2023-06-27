@@ -4,23 +4,17 @@ from django.utils import timezone
 
 
 class DateMixin(models.Model):
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        auto_now=False
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        auto_now_add=False
-    )
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
         abstract = True
 
 
 class SoftDeleteManager(models.Manager):
-
     def get_queryset(self) -> QuerySet:
         return super().get_queryset().filter(deleted_at__isnull=True)
+
 
 class SoftDeleteMixin(models.Model):
     deleted_at = models.DateTimeField(null=True, default=None)

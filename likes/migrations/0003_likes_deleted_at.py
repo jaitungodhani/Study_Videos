@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('likes', '0002_alter_likes_options_alter_likes_unique_together'),
+        ("likes", "0002_alter_likes_options_alter_likes_unique_together"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='likes',
-            name='deleted_at',
+            model_name="likes",
+            name="deleted_at",
             field=models.DateTimeField(default=None, null=True),
         ),
     ]

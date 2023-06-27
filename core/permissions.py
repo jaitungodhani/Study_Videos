@@ -8,8 +8,9 @@ def _is_in_group(user, group_name):
     except Group.DoesNotExist:
         return None
 
+
 def _has_group_permission(user, required_groups):
-    return any([_is_in_group(user,group_name) for group_name in required_groups])
+    return any([_is_in_group(user, group_name) for group_name in required_groups])
 
 
 class IsAdmin(permissions.BasePermission):
@@ -27,13 +28,15 @@ class IsFaculty(permissions.BasePermission):
         has_group_permission = _has_group_permission(request.user, self.required_groups)
         return request.user and has_group_permission
 
+
 class IsSubscribedFaculty(permissions.BasePermission):
     required_groups = ["Subscribed Faculty"]
 
     def has_permission(self, request, view):
         has_group_permission = _has_group_permission(request.user, self.required_groups)
         return request.user and has_group_permission
-    
+
+
 class IsStudent(permissions.BasePermission):
     required_groups = ["Student"]
 
@@ -41,57 +44,63 @@ class IsStudent(permissions.BasePermission):
         has_group_permission = _has_group_permission(request.user, self.required_groups)
         return request.user and has_group_permission
 
+
 class IsSubscribedStudent(permissions.BasePermission):
     required_groups = ["Subscribed Student"]
 
     def has_permission(self, request, view):
         has_group_permission = _has_group_permission(request.user, self.required_groups)
         return request.user and has_group_permission
-    
+
 
 class IsUserItSelf(permissions.BasePermission):
 
-    message = 'You must be the creator of this object.'
+    message = "You must be the creator of this object."
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.id == request.user.id
-    
+
+
 class IsUserItSelfforVideos(permissions.BasePermission):
 
-    message = 'You must be the creator of this object.'
+    message = "You must be the creator of this object."
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.for_channel.created_by.id == request.user.id
-    
+
+
 class IsUserItSelfforVideosChannel(permissions.BasePermission):
 
-    message = 'You must be the creator of this object.'
+    message = "You must be the creator of this object."
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.created_by.id == request.user.id
-    
+
+
 class IsUserItSelfforVideosFileUpload(permissions.BasePermission):
 
-    message = 'You must be the creator of this object.'
+    message = "You must be the creator of this object."
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.uploaded_by.id == request.user.id
-    
+
+
 class IsUserItSelfforThumnails(permissions.BasePermission):
 
-    message = 'You must be the creator of this object.'
+    message = "You must be the creator of this object."
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.
         return obj.video_file.uploaded_by.id == request.user.id
-    
+
+
 class IsUserItSelfforComment(permissions.BasePermission):
 
-    message = 'You must be the creator of this object.'
+    message = "You must be the creator of this object."
 
     def has_object_permission(self, request, view, obj):
         # Instance must have an attribute named `owner`.

@@ -120,8 +120,11 @@ LANGUAGES = [
     {"code": "nr", "name": "South Ndebele", "nativeName": "isiNdebele"},
     {"code": "oc", "name": "Occitan", "nativeName": "Occitan"},
     {"code": "oj", "name": "Ojibwe, Ojibwa", "nativeName": "ᐊᓂᔑᓈᐯᒧᐎᓐ"},
-    {"code": "cu", "name": "Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic",
-     "nativeName": "ѩзыкъ словѣньскъ"},
+    {
+        "code": "cu",
+        "name": "Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic",
+        "nativeName": "ѩзыкъ словѣньскъ",
+    },
     {"code": "om", "name": "Oromo", "nativeName": "Afaan Oromoo"},
     {"code": "or", "name": "Oriya", "nativeName": "ଓଡ଼ିଆ"},
     {"code": "os", "name": "Ossetian, Ossetic", "nativeName": "ирон æвзаг"},
@@ -184,18 +187,19 @@ LANGUAGES = [
     {"code": "xh", "name": "Xhosa", "nativeName": "isiXhosa"},
     {"code": "yi", "name": "Yiddish", "nativeName": "ייִדיש"},
     {"code": "yo", "name": "Yoruba", "nativeName": "Yorùbá"},
-    {"code": "za", "name": "Zhuang, Chuang", "nativeName": "Saɯ cueŋƅ, Saw cuengh"}
+    {"code": "za", "name": "Zhuang, Chuang", "nativeName": "Saɯ cueŋƅ, Saw cuengh"},
 ]
 
 
 class Command(BaseCommand):
-    help = 'Import Languages...'
+    help = "Import Languages..."
 
     def handle(self, *args, **options):
         for language in LANGUAGES:
             try:
-                Language.objects.get_or_create(code=language['code'], name=language['name'],
-                                        native_name=language['nativeName'])
+                Language.objects.get_or_create(
+                    code=language["code"], name=language["name"], native_name=language["nativeName"]
+                )
             except:
                 pass
 

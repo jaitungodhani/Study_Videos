@@ -7,13 +7,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('videos', '0004_alter_video_thumbnails_image'),
+        ("videos", "0004_alter_video_thumbnails_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='video_thumbnails',
-            name='video_file',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='video_for_thumbnails', to='videos.videosfile', verbose_name='Video File'),
+            model_name="video_thumbnails",
+            name="video_file",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="video_for_thumbnails",
+                to="videos.videosfile",
+                verbose_name="Video File",
+            ),
         ),
     ]

@@ -22,29 +22,27 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Studies Videos App Apis",
-      default_version='v1',
-      description="Studies Videos App Apis",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="support@studyvideosapp.com"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="Studies Videos App Apis",
+        default_version="v1",
+        description="Studies Videos App Apis",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="support@studyvideosapp.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('account.urls')),
-    path('api/', include('videos.urls')),
-    path('api/', include('likes.urls')),
-    path('api/', include('comments.urls')),
-    path('api/', include('payment.urls')),
-
-    re_path(r'^docs/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui')
+    path("admin/", admin.site.urls),
+    path("api/", include("account.urls")),
+    path("api/", include("videos.urls")),
+    path("api/", include("likes.urls")),
+    path("api/", include("comments.urls")),
+    path("api/", include("payment.urls")),
+    re_path(r"^docs/$", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
 ]
 
 

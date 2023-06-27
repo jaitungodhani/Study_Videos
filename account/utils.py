@@ -18,10 +18,6 @@ class GroupPermission:
 
     def _is_in_group(self, group):
         try:
-            return Group.objects.get(
-                name=group
-            ).user_set.filter(
-                id=self.user.id
-            ).exists()
+            return Group.objects.get(name=group).user_set.filter(id=self.user.id).exists()
         except Group.DoesNotExist:
             return None

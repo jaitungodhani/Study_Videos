@@ -1,9 +1,9 @@
-#!/usr/bin/bash 
+#!/usr/bin/bash
 
 sed -i 's/\[]/\["107.21.190.38"]/' /home/ubuntu/Study_Videos/study_videos/settings.py
 
-python manage.py migrate 
-python manage.py makemigrations     
+python manage.py migrate
+python manage.py makemigrations
 python manage.py collectstatic
 python manage.py create_groups
 python manage.py import_languages
