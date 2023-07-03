@@ -240,3 +240,35 @@ STUDENT_YEARLY_PLAN_ID = config("STUDENT_YEARLY_PLAN_ID")
 FACULTY_MONTHLY_PLAN_ID = config("FACULTY_MONTHLY_PLAN_ID")
 FACULTY_YEARLY_PLAN_ID = config("FACULTY_YEARLY_PLAN_ID")
 STRIPE_ENDPOINT_SECRET = config("STRIPE_ENDPOINT_SECRET")
+
+LOGGING = {
+    "version": 1,
+    "loggers": {"django": {"handlers": ["file", "error_file", "info_file", "warning_file"], "level": "DEBUG"}},
+    "handlers": {
+        "file": {"level": "DEBUG", "class": "logging.FileHandler", "filename": "debugs.log"},
+        "info_file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "info_debugs.log",
+            "formatter": "log_formatters",
+        },
+        "warning_file": {
+            "level": "WARNING",
+            "class": "logging.FileHandler",
+            "filename": "warning_debugs.log",
+            "formatter": "log_formatters",
+        },
+        "error_file": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": "error_debugs.log",
+            "formatter": "log_formatters",
+        },
+    },
+    "formatters": {
+        "log_formatters": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        }
+    },
+}
