@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-sed -i 's/\[]/\["107.21.190.38"]/' /home/ubuntu/Study_Videos/study_videos/settings.py
+sed -i 's/\[]/\["16.170.228.30"]/' /home/ubuntu/Study_Videos/study_videos/settings.py
 
 python manage.py migrate
 python manage.py makemigrations
